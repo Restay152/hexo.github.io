@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-23T13:20:24.947Z</updated>
+  <updated>2024-05-24T08:38:17.945Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>同步计数器的设计</title>
+    <link href="http://example.com/2024/05/24/%E5%90%8C%E6%AD%A5%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
+    <id>http://example.com/2024/05/24/%E5%90%8C%E6%AD%A5%E8%AE%A1%E6%95%B0%E5%99%A8/</id>
+    <published>2024-05-24T08:35:04.586Z</published>
+    <updated>2024-05-24T08:38:17.945Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="画出状态图"><a href="#画出状态图" class="headerlink" title="画出状态图"></a>画出状态图</h1><table><thead><tr><th>初态</th><th>次态</th></tr></thead><tbody><tr><td>0 0 0</td><td>1 1 1</td></tr><tr><td>1 1 1</td><td>1 1 0</td></tr><tr><td>1 1 0</td><td>1 0 1</td></tr><tr><td>1 0 1</td><td>0 1 1</td></tr><tr><td>0 1 1</td><td>0 1 0</td></tr><tr><td>0 1 0</td><td>0 0 1</td></tr><tr><td>0 0 1</td><td>0 0 0</td></tr></tbody></table><h1 id="绘制次态卡诺图"><a href="#绘制次态卡诺图" class="headerlink" title="绘制次态卡诺图"></a>绘制次态卡诺图</h1><table><thead><tr><th></th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead><tbody><tr><td>0</td><td>111</td><td>000</td><td>010</td><td>001</td></tr><tr><td>1</td><td>xxx</td><td>011</td><td>110</td><td>101</td></tr></tbody></table><table><thead><tr><th>Q2</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>x</td><td>0</td><td>1</td><td>1</td></tr></tbody></table><table><thead><tr><th>Q1</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>x</td><td>1</td><td>1</td><td>0</td></tr></tbody></table><table><thead><tr><th>Q0</th><th>00</th><th>01</th><th>11</th><th>10</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>x</td><td>1</td><td>0</td><td>1</td></tr></tbody></table><h1 id="列状态方程"><a href="#列状态方程" class="headerlink" title="列状态方程"></a>列状态方程</h1><p>令$Q_2 &#x3D; A , Q_1 &#x3D; B ，Q_0 &#x3D; C$</p><p>$Q_2^{n+1} &#x3D; AB + \bar B\bar C $</p><p>$Q_1^{n+1} &#x3D; AC +BC +\bar B\bar C$</p><p>$Q_0^{n+1} &#x3D; C + A \bar B$</p><p>根据驱动方程 $ Q^{n+1} &#x3D; J \bar Q^n + \bar K Q^n$</p><p>$Q_2^{n+1} &#x3D; (B + \bar B \bar C)A + \bar B \bar C \bar A$</p><p>$Q_2^{n+1} &#x3D; \overline {\bar B C} A +  \bar B \bar C \bar A$</p><p>即$J_2 &#x3D; \bar B \bar C , K_2 &#x3D; \bar B C$</p><hr><p>$Q_1^{n+1} &#x3D; (AC+C) B + (AC+C) \bar B$</p><p>$Q_1^{n+1} &#x3D; CB + C \bar B$</p><p>即$J_1 &#x3D; C,K_2 &#x3D; \bar C$</p><hr><p>$Q_0^{n+1} &#x3D; A \bar B  C + (AB + 1) \bar C$</p><p>$Q_0^{n+1} &#x3D; A \bar B  C + \bar C $</p><p>即$J_0&#x3D; 1，K_0&#x3D; A \bar B$</p><hr><p>根据三组J与K的值，接入三个JK触发器，得到：</p><p><img src="https://pic.imgdb.cn/item/664f1e8ed9c307b7e94cec71.png" alt="原理图"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;画出状态图&quot;&gt;&lt;a href=&quot;#画出状态图&quot; class=&quot;headerlink&quot; title=&quot;画出状态图&quot;&gt;&lt;/a&gt;画出状态图&lt;/h1&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;初态&lt;/th&gt;
+&lt;th&gt;次态&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;</summary>
+      
+    
+    
+    
+    <category term="杂项" scheme="http://example.com/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>hello</title>
